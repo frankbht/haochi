@@ -9,12 +9,13 @@ exports.create = function(req, res, next) {
 
   restaurantModel.save(function(err, dish) {
     if (err) { return next(err); }
+    res.status(200).send({dish});
   });
 }
 
 exports.show = function(req, res, next) {
   Restaurant.find(function(err, restaurants) {
     if (err) { return next(err); }
-    res.json({ restaurants })
+    res.status(200).send({restaurants});
   })
 }
