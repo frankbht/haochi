@@ -10,6 +10,7 @@ const resultSchema = new Schema({
 });
 
 resultSchema.methods.voter = function(userId) {
+  console.log(this.votedBy[0], userId)
   if (this.votedBy.includes(userId)) return true;
   return false;
 }
