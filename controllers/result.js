@@ -19,6 +19,8 @@ exports.vote = function(req, res, next) {
   .then((response) => {
     if(!response) {
       Restaurant.findOne({ _id: req.body.restaurant}, function(err, restaurant) {
+        if (err) { return res.status(400).send(err); }
+        let resultModel = new Result();
         console.log(restaurant);
         resultModel.name = restaurant.name;
         resultModel.distance = restaurant.distance;
@@ -26,7 +28,7 @@ exports.vote = function(req, res, next) {
         resultModel.date = current;
         resultModel.votedBy = [req.user._id];
         resultModel.save(function(err, newResult) {
-          if (err) { return next(err); }
+          if (err) { return res.status(400).send(err); }
         });
       })
     } else {
